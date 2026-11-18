@@ -81,6 +81,17 @@ resolves to `/apps/camera/` inside the bundle.
 
 ## State of this repo
 
-Written against Camera's schema as declared in its `app.js`. Not verified in a browser yet: creating
-the store from an empty profile, thumbnails appearing as tiles scroll, the viewer opening photos and
-videos, delete removing a record, and one full reload with the network off.
+Verified in headless Chrome against the bundle preview origin, with a canvas-backed `getUserMedia`
+stub standing in for camera hardware: a shutter press in Apex Camera wrote a 640×480 JPEG
+(`apex-camera-20261118-121939.jpg`, 12 KB) into `apex-gallery/photos` with both indexes present, and
+Gallery listed it as "1 photo · 0 videos · 12 KB on this device" with a thumbnail that decoded at
+640×480 and dropped its placeholder. The viewer opened the same file at 640×480, showed its date,
+dimensions and size, held the blob under the original name on **Download**, disabled both arrows for
+a single item, and closed on Escape. With network emulation off, a reload was still served by `sw.js`
+and the capture opened, while a cross-origin fetch failed — so the shell and the file both worked
+without a connection. **Delete** asked for confirmation, removed the record (`count()` back to 0),
+emptied the grid and restored the empty state.
+
+Not verified: video playback and the video tile's duration badge (no recording was made), Gallery
+creating the store as the first of the two apps to run, real camera hardware, and completing a
+Download through the browser's save picker.
