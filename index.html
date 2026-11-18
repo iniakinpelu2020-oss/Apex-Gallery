@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a12">
+<title>Apex Gallery</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header class="bar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <div class="brand-text">
+      <h1>Apex Gallery</h1>
+      <p id="countStamp" class="stamp">Reading device storage&hellip;</p>
+    </div>
+  </div>
+  <div class="tools">
+    <label class="search">
+      <span class="vh">Search names</span>
+      <input id="searchInput" type="search" placeholder="Search names" autocomplete="off" spellcheck="false">
+    </label>
+    <button id="refreshBtn" class="btn" type="button">Refresh</button>
+  </div>
+</header>
+
+<nav class="chips" aria-label="Filter by kind">
+  <button id="filterAll" class="chip" type="button" aria-pressed="true">All</button>
+  <button id="filterPhoto" class="chip" type="button" aria-pressed="false">Photos</button>
+  <button id="filterVideo" class="chip" type="button" aria-pressed="false">Videos</button>
+</nav>
+
+<main>
+  <section id="unsupported" class="panel" hidden>
+    <h2>Device storage is unavailable</h2>
+    <p>This browser does not expose IndexedDB to the page, so the captures Apex Camera saved cannot be read here. Try a normal (non-private) window.</p>
+  </section>
+
+  <section id="empty" class="panel empty" hidden>
+    <h2>Nothing here yet</h2>
+    <p id="emptyNote">Photos and videos you take in Apex Camera are kept on this device and show up in this grid.</p>
+    <a class="btn primary" href="../camera/">Open Apex Camera</a>
+  </section>
+
+  <ul id="grid" class="grid"></ul>
+</main>
+
+<dialog id="lightbox" class="lightbox">
+  <div class="lb-head">
+    <div class="lb-titles">
+      <p id="lightboxName" class="lb-name">&nbsp;</p>
+      <p id="lightboxMeta" class="stamp"></p>
+    </div>
+    <button id="closeBtn" class="icon" type="button" aria-label="Close viewer">&#10005;</button>
+  </div>
+  <div class="lb-stage">
+    <button id="prevBtn" class="nav" type="button" aria-label="Previous item">&#8249;</button>
+    <div id="lightboxMedia" class="media"></div>
+    <button id="nextBtn" class="nav" type="button" aria-label="Next item">&#8250;</button>
+  </div>
+  <div class="lb-foot">
+    <a id="downloadBtn" class="btn primary" href="#" download>Download</a>
+    <button id="deleteBtn" class="btn danger" type="button">Delete</button>
+  </div>
+</dialog>
+
+<p id="toast" class="toast" role="status" aria-live="polite" hidden></p>
+
+<script src="./app.js"></script>
+</body>
+</html>
